@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Controller, useForm } from "react-hook-form";
+import MaskedInput from "./MaskedInput";
 
 function App() {
+  const DEFAULT = 70;
+  const { control, watch } = useForm({
+    defaultValues: {
+      maskedInput: DEFAULT,
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Controller
+        name="maskedInput"
+        render={(props) => <MaskedInput defaultValue={DEFAULT} {...props} />}
+        control={control}
+      />
+      <div style={{ color: "white" }}>
+        <b>Watch : </b>
+        {watch("maskedInput")}
+      </div>
+    </>
   );
 }
 
